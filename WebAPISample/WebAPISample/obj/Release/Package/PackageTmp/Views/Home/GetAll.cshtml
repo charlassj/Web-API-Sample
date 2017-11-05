@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WebAPISample.Models.SampleData>
+@{
+    ViewBag.Title = "GetAll";
+}
+
+<table border="1" class=".table-striped">
+    <thead>
+    <tr>
+        <th>SampleName</th>
+        <th>City</th>
+        <th>Town</th>
+        <th>TemperatureSensorValue</th>
+        <th>LightSensorValue</th>
+        <th>MotorTimeIntervalInMins</th>
+    </tr>
+    </thead><tbody>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.SampleName</td>
+            <td>@x.City</td>
+            <td>@x.Town</td>
+            <td>@x.TemperatureSensorValue</td>
+            <td>@x.LightSensorValue</td>
+            <td>@x.MotorTimeIntervalInMins</td>
+        </tr>
+    }
+</tbody>
+</table>

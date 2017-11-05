@@ -1,0 +1,119 @@
+﻿<h1>Sample API Application</h1>
+
+    <div class="row">   
+        <div class="col-md-2">
+            <label>SampleName : </label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="sampleNameId"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>City : </label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="cityId" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Town : </label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="townId" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>TemperatureSensor : </label>
+        </div>
+        <div class="col-md-2">
+            <input type="number" id="temperatureSensorId" />
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label>LightSensor : </label>
+            </div>
+            <div class="col-md-2">
+                <input type="number" id="lightSensorId" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label>MotorTimeInterval : </label>
+            </div>
+            <div class="col-md-2">
+                <input type="number" id="motorTimeIntervalId" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-1 col-md-6">
+                <textarea id="outputWindowId" style="height:100px;width:350px;" placeholder="Output Window"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn-primary" onclick="location.href='@Url.Action("GetAll", "Home")'">GetAll</button>
+                <button type="submit" class="btn-danger" onclick="PostData()">Post</button>
+                <button type="button" class="btn-default" onclick="GetAll()">GetJson</button>
+            </div>
+        </div>
+
+<style>
+    .row {
+        padding: 5px;
+    }
+</style>
+
+<script>
+    function isNullAndUndef(variable) {
+        return (variable !== null && variable !== undefined && variable !== "");
+    }
+
+    function PostData() {
+        var data = $('#outputWindowId').val();
+        var baseUrl = window.location.protocol + "//" + window.location.host + "/";
+
+        $.ajax({
+            type: "POST",
+            data: data,
+            url: baseUrl + "api/SampleAPI",
+            crossDomain: true,
+            dataType: "json",
+            contentType: "application/json"
+        });
+        location.reload(true);
+    }
+
+    function GetAll() {
+        var baseUrl = window.location.protocol + "//" + window.location.host + "/";
+
+        $.ajax({
+            type: "GET",
+            //data: JSON.stringify(data),
+            url: baseUrl + "api/SampleAPI",
+            crossDomain: true,
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                var names = JSON.stringify(data);
+                
+                $('#outputWindowId').val(names);
+            }
+        });
+    }
+    
+    $('#sampleNameId').add('#cityId').add('#townId').add('#motorTimeIntervalId').add('#temperatureSensorId').add('#lightSensorId').on('focusout', function () {
+        var sampleName = isNullAndUndef($('#sampleNameId').val())?$('#sampleNameId').val():"";
+        var city = isNullAndUndef($('#cityId').val()) ? $('#cityId').val() : "";
+        var town = isNullAndUndef($('#townId').val()) ? $('#townId').val() : "";
+        var temperatureSensor = isNullAndUndef($('#temperatureSensorId').val()) ? $('#temperatureSensorId').val() : "";
+        var lightSensor = isNullAndUndef($('#lightSensorId').val()) ? $('#lightSensorId').val() : "";
+        var motorTimeInterval = isNullAndUndef($('#motorTimeIntervalId').val()) ? $('#motorTimeIntervalId').val() : "";
+
+        var output = "{\"sampleName\": \"" + sampleName + "\",\"City\": \"" + city + "\",\"Town\": \"" + town + "\",\"TemperatureSensorValue\": \"" + temperatureSensor + "\",\"LightSensorValue\": \"" + lightSensor + "\",\"MotorTimeIntervalInMins\": \"" + motorTimeInterval + "\" }";
+        $('#outputWindowId').val(output);
+    });
+</script>

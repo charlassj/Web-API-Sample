@@ -1,0 +1,71 @@
+﻿@model WebAPISample.Models.SampleData
+
+@using (Html.BeginForm("PostSampleData", "Home", FormMethod.Post))
+{
+
+    <div class="row">
+        <div class="col-md-2">
+            <label>SampleName : </label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(x => x.SampleName)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>City : </label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(x => x.City)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Town : </label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(x => x.Town)
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label>TemperatureSensor : </label>
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.TemperatureSensorValue, htmlAttributes: new { @style = "", @type = "number" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label>LightSensor : </label>
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.LightSensorValue, htmlAttributes: new { @style = "", @type = "number" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label>MotorTimeInterval : </label>
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.MotorTimeIntervalInMins, htmlAttributes: new { @style = "", @type = "number" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.TextAreaFor(x => x.OutputText, htmlAttributes: new { @style = "", @placeholder = "Output Window.." })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn-primary" onclick="location.href='@Url.Action("GetAll", "Home")'">GetAll</button>
+                <button type="submit" class="btn-danger" >Post</button>
+            </div>
+        </div>
+}
+
+<style>
+    .row {
+    padding:5px;
+    }
+</style>
